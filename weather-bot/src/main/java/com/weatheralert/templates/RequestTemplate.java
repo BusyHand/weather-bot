@@ -46,7 +46,8 @@ public class RequestTemplate {
 		cityName = cityName.replace(" ", "%20");
 		String request = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities?" +
 				"namePrefix=" + cityName +
-				"&languageCode=ru";
+				"&languageCode=ru" +
+				"&limit=5";
 		return RequestEntity.get(URI.create(request))
 				.header("X-RapidAPI-Key", geodbKey)
 				.build();

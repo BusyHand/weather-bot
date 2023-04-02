@@ -10,10 +10,13 @@ import com.weatheralert.router.CallbackRouter;
 import com.weatheralert.router.MessageRouter;
 import com.weatheralert.templates.AnswerTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*
  * Bot that route updates
  */
 @Component
+@Slf4j
 public class WeatherBot extends WeatherProperties {
 
 	@Autowired
@@ -31,12 +34,21 @@ public class WeatherBot extends WeatherProperties {
 
 	@Override
 	public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
+		try {
+			return routeUpdate(update);
+		} catch (Exception e) {
+			log.error("ERROR:", e);
+			return null;
+		}
+
+	}
+
+	private BotApiMethod<?> routeUpdate(Update update) {
 		if (update.hasCallbackQuery()) {
 			return callbackRouter.callbackRoute(update);
 		} else if (update.hasMessage()) {
 			return messageRouter.messageRoute(update);
 		}
 		return defaultAnswerSender.getLocationReplyMarkup(update.getMessage(), "/help - список команд");
-
 	}
 }
