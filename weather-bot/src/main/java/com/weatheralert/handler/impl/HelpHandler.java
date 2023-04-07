@@ -29,7 +29,7 @@ public class HelpHandler implements CommandHandler {
 				"Weather bot - это удобный телеграмм бот с возможностью узнать погоду и установить время оповещения пользователя\r\n"
 						+
 						"/help - список команд\r\n" +
-						"/alert (00:00) - установка времени оповещения с актуальным прогнозом погоды. Для установки нужно отправить сообщение вида: /alert 23:12");
+						"/alert 00:00 - установка времени оповещения с актуальным прогнозом погоды. Для установки нужно отправить сообщение вида: /alert 23:12");
 	}
 
 	@CommandHandlerMethod(Command.START)
@@ -43,7 +43,7 @@ public class HelpHandler implements CommandHandler {
 	private SendMessage handleStop(Message message) {
 		userRepository.deleteByChatId(message.getChatId());
 		return answerTemplate.getLocationReplyMarkup(message,
-				"Данные удалены");
+				"✔️ Данные удалены");
 	}
 
 }

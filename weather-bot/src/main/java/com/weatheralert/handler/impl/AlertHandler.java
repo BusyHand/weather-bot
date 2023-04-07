@@ -49,17 +49,17 @@ public class AlertHandler implements CommandHandler {
 		String text = message.getText();
 		String inputTime = text.substring(Command.ALERT_TIME.getName().length()).trim();
 		if (inputTime.isEmpty() || !textValidate.isValidTime(inputTime))
-			return answerTemplate.getMessage(message, "Время указывается в формате вида: (02:03)");
+			return answerTemplate.getMessage(message, "❌ Время указывается в формате: /alert 00:00");
 
 		List<Integer> timeFromText = textParser.getTimeFromText(inputTime);
 		Integer hours = timeFromText.get(0);
 		Integer minutes = timeFromText.get(1);
 		if (!textValidate.isValidTime(hours, minutes))
-			return answerTemplate.getMessage(message, "Такого времени не существует: " + hours + ":" + minutes);
+			return answerTemplate.getMessage(message, "❌ Такого времени не существует");
 
 		Optional<TelegramUser> userOptional = userRepository.getByChatId(message.getChatId());
 		if (userOptional.isEmpty()) {
-			return answerTemplate.getMessage(message, "Сначала нужно выбрать локацию");
+			return answerTemplate.getMessage(message, "❌ Сначала нужно выбрать локацию");
 		}
 
 		TelegramUser user = userOptional.get();
@@ -67,19 +67,23 @@ public class AlertHandler implements CommandHandler {
 		int minutesOfDay = timeStore.addTime(userTimeZone, hours, minutes);
 		user.setAlertMinutes(minutesOfDay);
 		userRepository.save(user);
-		return answerTemplate.getMessage(message, "Время на: " + hours + ":" + minutes + " .Установлено");
+
+		String strHours = hours < 10 ? "0" + hours : hours + "";
+		String strMinutes = hours < 10 ? "0" + minutes : minutes + "";
+		return answerTemplate.getMessage(message, "✔️ Время уведомления установлено на: " + strHours + ":"
+				+ strMinutes);
 	}
 
 	@CommandHandlerMethod(Command.RESET_ALERT)
 	private SendMessage handleResetAlert(Message message) {
 		Optional<TelegramUser> user = userRepository.getByChatId(message.getChatId());
 		if (user.isEmpty()) {
-			return answerTemplate.getMessage(message, "Сначала нужно установить время /alert 00:00");
+			return answerTemplate.getMessage(message, "❌ Сначала нужно установить время");
 		}
 		TelegramUser telegramUser = user.get();
 		telegramUser.setAlertMinutes("");
 		userRepository.save(telegramUser);
-		return answerTemplate.getMessage(message, "Время оповещения сброшено");
+		return answerTemplate.getMessage(message, "✔️ Время оповещения сброшено");
 	}
 
 }

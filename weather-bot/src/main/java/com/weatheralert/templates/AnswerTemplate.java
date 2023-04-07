@@ -21,7 +21,7 @@ public class AnswerTemplate {
 		List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
 		buttons.add(List.of(
 				InlineKeyboardButton.builder()
-						.text("Текущая погода")
+						.text("Сейчас")
 						.callbackData(Command.CURRENT.getName())
 						.build(),
 				InlineKeyboardButton.builder()
@@ -36,7 +36,7 @@ public class AnswerTemplate {
 	}
 
 	public SendMessage getMenuWeatherFeatures(Message message) {
-		return getMenuWeatherFeatures(message, "Выберите какой прогноз вам нужен");
+		return getMenuWeatherFeatures(message, "✔️ Выберите какой прогноз вам нужен");
 	}
 
 	public SendMessage getMenuWeatherFeatures(Message message, String text) {
@@ -69,6 +69,7 @@ public class AnswerTemplate {
 	}
 
 	public SendMessage getReplyMarkup(Message message, String textMessage, List<List<InlineKeyboardButton>> buttons) {
+		
 		return SendMessage.builder()
 				.text(textMessage)
 				.chatId(message.getChatId())

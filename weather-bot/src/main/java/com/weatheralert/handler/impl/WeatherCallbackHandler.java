@@ -44,7 +44,7 @@ public class WeatherCallbackHandler implements CommandHandler {
 		Long chatId = callbackQuery.getMessage().getChatId();
 		Optional<TelegramUser> user = userRepository.getByChatId(chatId);
 		if (user.isEmpty()) {
-			return answerTemplate.getMessage(callbackQuery.getMessage(), "Cначала нужно выбрать локацию");
+			return answerTemplate.getMessage(callbackQuery.getMessage(), "❌ Cначала нужно выбрать локацию");
 		}
 		TelegramUser telegramUser = user.get();
 
@@ -61,7 +61,7 @@ public class WeatherCallbackHandler implements CommandHandler {
 		Long chatId = callbackQuery.getMessage().getChatId();
 		Optional<TelegramUser> user = userRepository.getByChatId(chatId);
 		if (user.isEmpty()) {
-			return answerTemplate.getMessage(callbackQuery.getMessage(), "Cначала нужно выбрать локацию");
+			return answerTemplate.getMessage(callbackQuery.getMessage(), "❌ Cначала нужно выбрать локацию");
 		}
 		TelegramUser telegramUser = user.get();
 
@@ -79,7 +79,7 @@ public class WeatherCallbackHandler implements CommandHandler {
 		Long chatId = callbackQuery.getMessage().getChatId();
 		Optional<TelegramUser> user = userRepository.getByChatId(chatId);
 		if (user.isEmpty()) {
-			return answerTemplate.getMessage(callbackQuery.getMessage(), "Cначала нужно выбрать локацию");
+			return answerTemplate.getMessage(callbackQuery.getMessage(), "❌ Cначала нужно выбрать локацию");
 		}
 		TelegramUser telegramUser = user.get();
 
@@ -96,7 +96,7 @@ public class WeatherCallbackHandler implements CommandHandler {
 		Long chatId = callbackQuery.getMessage().getChatId();
 		Optional<TelegramUser> user = userRepository.getByChatId(chatId);
 		if (user.isEmpty()) {
-			return answerTemplate.getMessage(callbackQuery.getMessage(), "Cначала нужно выбрать локацию");
+			return answerTemplate.getMessage(callbackQuery.getMessage(), "❌ Cначала нужно выбрать локацию");
 		}
 		TelegramUser telegramUser = user.get();
 

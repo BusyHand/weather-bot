@@ -21,7 +21,7 @@ public class ErrorsHandler implements CommandHandler {
 	 */
 	@CommandHandlerMethod(Command.ERROR)
 	private SendMessage handleError(Message message) {
-		return answerTemplate.getMessage(message, "У данной команды нет поддержки");
+		return answerTemplate.getMessage(message, "❌ У данной команды нет поддержки");
 	}
 
 }

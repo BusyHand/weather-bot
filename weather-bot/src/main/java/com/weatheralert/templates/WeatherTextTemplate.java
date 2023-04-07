@@ -36,7 +36,7 @@ public class WeatherTextTemplate {
 	public String getForAlert(WeatherModel weatherViewOnDay, WeatherModel currentWeatherView) {
 		return "Погода сейчас:\n" +
 				descriptionsMap.get(currentWeatherView.getDesCode()) + "\n" +
-				"Температура сейчас: " + currentWeatherView.getTemperature() + "°\n" +
+				"Температура: " + currentWeatherView.getTemperature() + "°\n" +
 				"Скорость ветра: " + currentWeatherView.getWindSpd() + " (m/s)" +
 				"\n---------\n" +
 				"Сегодня ожидается:\n" +

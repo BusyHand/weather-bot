@@ -45,19 +45,24 @@ public class LocationHandler implements CommandHandler {
 		String cityName = textParser.getCityNameFromText(message.getText());
 		if (!cityName.isBlank()) {
 			List<TownView> findTowns = locationDataFinder.findTownsByName(cityName);
-			List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
-			findTowns.forEach(townView -> {
-				buttons.add(List.of(
-						InlineKeyboardButton.builder()
-								.text(townView.getCity_name() + ", " + townView.getRegion())
-								.callbackData(Command.LOCATION.getName() + "," +
-										townView.getLatitude() + "," +
-										townView.getLongitude())
-								.build()));
-			});
-			return answerTemplate.getReplyMarkup(message, "Выберите город:", buttons);
+			if (!findTowns.isEmpty()) {
+				List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
+				findTowns.forEach(townView -> {
+					buttons.add(List.of(
+							InlineKeyboardButton.builder()
+									.text(townView.getCity_name() + ", " + townView.getRegion())
+									.callbackData(Command.LOCATION.getName() + "," +
+											townView.getLatitude() + "," +
+											townView.getLongitude())
+									.build()));
+				});
+				return answerTemplate.getReplyMarkup(message, "Выберите город:", buttons);
+			} else {
+				return answerTemplate.getMessage(message,
+						"❌ К сожалению погоду этого города не получается найти. Если вам нужно узнать погоду в том месте в котором вы находитесь, то вы можете отправить свою геолокацию.");
+			}
 		} else
-			return answerTemplate.getMessage(message, "Не удалось прочитать город из текста. Попробуйте еще раз");
+			return answerTemplate.getMessage(message, "❌ Не удалось прочитать город из текста. Попробуйте еще раз");
 	}
 
 	/**
