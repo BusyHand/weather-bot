@@ -69,7 +69,7 @@ public class AlertHandler implements CommandHandler {
 		userRepository.save(user);
 
 		String strHours = hours < 10 ? "0" + hours : hours + "";
-		String strMinutes = hours < 10 ? "0" + minutes : minutes + "";
+		String strMinutes = minutes < 10 ? "0" + minutes : minutes + "";
 		return answerTemplate.getMessage(message, "✔️ Время уведомления установлено на: " + strHours + ":"
 				+ strMinutes);
 	}
