@@ -52,7 +52,6 @@ public class TimerAlert {
 		users.forEach(user -> {
 			Update update = getUpdate(user);
 			execute(callbackRouter.callbackRoute(update));
-
 		});
 	}
 
