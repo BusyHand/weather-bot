@@ -10,6 +10,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,6 +39,7 @@ public class TimeStore {
 			List<TelegramUser> allUsers = userRepository.findAll();
 			List<Integer> minutesList = allUsers.stream()
 					.map((TelegramUser::getAlertMinutes))
+					.filter(Objects::nonNull)
 					.map(Integer::valueOf)
 					.collect(toList());
 			minuteOfDaySet.addAll(minutesList);
